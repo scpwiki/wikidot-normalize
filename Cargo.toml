@@ -12,3 +12,10 @@ authors = ["Ammon Smith <ammon.i.smith@gmail.com>"]
 edition = "2018" # this refers to the Cargo.toml version
 
 [dependencies]
+lazy_static = "1"
+log = "0.4"
+percent-encoding = "2"
+regex = "1"
+
+[dev-dependencies]
+str-macro = "0.1"

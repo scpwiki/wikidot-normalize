@@ -13,4 +13,27 @@
 
 #![deny(missing_debug_implementations)]
 
+#[macro_use]
+extern crate lazy_static;
+
+#[macro_use]
+extern crate log;
+extern crate percent_encoding;
+extern crate regex;
+
+#[cfg(test)]
+#[macro_use]
+extern crate str_macro;
+
+mod normal;
+
+#[cfg(test)]
+mod test;
+
 pub type StdResult<T, E> = std::result::Result<T, E>;
+
+pub use self::normal::{is_normal, normalize, normalize_decode};
+
+pub mod prelude {
+    pub use super::normal::{is_normal, normalize, normalize_decode};
+}
