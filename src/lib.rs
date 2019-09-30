@@ -16,7 +16,7 @@
 //! A library to provide Wikidot-compatible string normalization.
 //!
 //! Wikidot ensures all names of pages subscribe to a particular pattern.
-//! Essentially, only the characters `_`, `a-z`, `0-9`, and `-` can be outputted.
+//! Essentially, only the characters `_`, `:`, `a-z`, `0-9`, and `-` can be outputted.
 //! Any uppercase ASCII characters are made lowercase, and any characters outside
 //! the above set are collapsed into dashes. Finally, any leading, trailing, or
 //! multiple dashes are trimmed.
