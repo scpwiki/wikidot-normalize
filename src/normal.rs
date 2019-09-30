@@ -11,7 +11,6 @@
  *
  */
 
-use crate::StdResult;
 use regex::Regex;
 use std::borrow::Cow;
 use std::mem;
@@ -24,7 +23,7 @@ lazy_static! {
 }
 
 #[inline]
-fn percent_decode(input: &str) -> StdResult<Cow<str>, Utf8Error> {
+fn percent_decode(input: &str) -> Result<Cow<str>, Utf8Error> {
     use percent_encoding::percent_decode_str;
 
     percent_decode_str(input).decode_utf8()

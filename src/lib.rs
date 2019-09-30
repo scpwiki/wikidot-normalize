@@ -11,7 +11,15 @@
  *
  */
 
-#![deny(missing_debug_implementations)]
+#![deny(missing_debug_implementations, missing_docs)]
+
+//! A library to provide Wikidot-compatible string normalization.
+//!
+//! Wikidot ensures all names of pages subscribe to a particular pattern.
+//! Essentially, only the characters `_`, `a-z`, `0-9`, and `-` can be outputted.
+//! Any uppercase ASCII characters are made lowercase, and any characters outside
+//! the above set are collapsed into dashes. Finally, any leading, trailing, or
+//! multiple dashes are trimmed.
 
 #[macro_use]
 extern crate lazy_static;
@@ -30,10 +38,13 @@ mod normal;
 #[cfg(test)]
 mod test;
 
-pub type StdResult<T, E> = std::result::Result<T, E>;
-
 pub use self::normal::{is_normal, normalize, normalize_decode};
 
+/// A "prelude" for consumers of the `wikidot-normalize` crate.
+///
+/// This prelude includes all exports from the crate, and is provided
+/// for convenience without requiring programs to do a glob import of
+/// the whole crate.
 pub mod prelude {
     pub use super::normal::{is_normal, normalize, normalize_decode};
 }
