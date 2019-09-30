@@ -1,0 +1,9 @@
+# Artifacts
+target/
+Cargo.lock
+
+# Misc
+*.bak
+*~
+*.rs.bak
+.*.sw?

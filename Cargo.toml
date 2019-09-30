@@ -1,0 +1,14 @@
+[package]
+name = "wikidot-normalize"
+description = "Simple library to provide Wikidot-compatible string normalization"
+repository = "https://github.com/Nu-SCPTheme/wikidot-normalize"
+readme = "README.md"
+license = "MIT"
+keywords = ["wikidot", "normal", "nuscp"]
+exclude = [".gitignore", ".travis.yml"]
+
+version = "0.0.1"
+authors = ["Ammon Smith <ammon.i.smith@gmail.com>"]
+edition = "2018" # this refers to the Cargo.toml version
+
+[dependencies]
