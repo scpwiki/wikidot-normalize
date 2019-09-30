@@ -43,6 +43,10 @@ fn test_normalize() {
     check!("/Tufto's Proposal---", "/tufto-s-proposal");
     check!("page/-", "page/");
     check!("/ page /-yeah-/ thing ", "/page/yeah/thing");
+
+    check!("/SCP%20xxxx", "/scp-20xxxx");
+    check!("/scp%20xxxx/", "/scp-20xxxx/");
+    check!("%20scp%20%20xxxx", "20scp-20-20xxxx");
 }
 
 #[test]
