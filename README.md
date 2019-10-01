@@ -12,10 +12,10 @@ Wikidot normal form is used in the site's page names. Essentially it ensures the
 
 **Examples:**
 
-* `Big Cheese Horace` -> `big-cheese-horace`
-* `bottom--Text` -> `bottom-text`
-* `Tufto's Proposal` -> `tufto-s-proposal`
-* `-test-` -> `test`
+* `"Big Cheese Horace"` **->** `"big-cheese-horace"`
+* `"bottom--Text"` **->** `"bottom-text"`
+* `"Tufto's Proposal"` **->** `"tufto-s-proposal"`
+* `"-test-"` **->** `"test"`
 
 Available under the terms of the MIT License. See [LICENSE.md](LICENSE).
 
