@@ -69,7 +69,7 @@ fn test_is_normal() {
     macro_rules! check {
         ($expected:expr, $input:expr) => {{
             assert_eq!(
-                is_normal($input),
+                is_normal($input, false),
                 $expected,
                 "Normalization test failed: {}",
                 $input,
@@ -92,6 +92,26 @@ fn test_is_normal() {
     check!(false, "<[ TEST ]>");
     check!(false, " <[ TEST ]> ");
     check!(false, "!!!!!!!!!!!!");
+}
+
+#[test]
+fn test_is_normal_slash() {
+    macro_rules! check {
+        ($expected:expr, $input:expr) => {{
+            assert_eq!(
+                is_normal($input, true),
+                $expected,
+                "Path normalization test failed: {}",
+                $input,
+            );
+
+            assert!(
+                !is_normal($input, false),
+                "Path normalization test passed: {}",
+                $input,
+            );
+        }};
+    }
 
     check!(true, "/");
     check!(true, "/scp-1000/");
