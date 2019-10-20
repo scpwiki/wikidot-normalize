@@ -65,7 +65,7 @@ fn test_normalize_decode() {
     check!("/SCP%20xxxx", "/scp-xxxx");
     check!("/scp%20xxxx/", "/scp-xxxx/");
     check!("%20scp%20%20xxxx", "scp-xxxx");
-    check!("Component%20image block", "component:image-block");
+    check!("Component%3Aimage block", "component:image-block");
     check!("/fragment:scp-4447-2", "/fragment:scp-4447-2");
     check!("/fragment::scp-4447-2", "/fragment:scp-4447-2");
 }
