@@ -36,6 +36,7 @@ fn test_normalize() {
     check!("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!", "");
     check!("Component:image block", "component:image-block");
     check!("fragment:scp-4447-2", "fragment:scp-4447-2");
+    check!("fragment::scp-4447-2", "fragment:scp-4447-2");
 
     check!("/", "/");
     check!("/scp-1000/", "/scp-1000/");
@@ -66,6 +67,7 @@ fn test_normalize_decode() {
     check!("%20scp%20%20xxxx", "scp-xxxx");
     check!("Component%20image block", "component:image-block");
     check!("/fragment:scp-4447-2", "/fragment:scp-4447-2");
+    check!("/fragment::scp-4447-2", "/fragment:scp-4447-2");
 }
 
 #[test]
@@ -98,6 +100,7 @@ fn test_is_normal() {
     check!(false, "!!!!!!!!!!!!");
     check!(false, "Component:image-block");
     check!(true, "component:image-block");
+    check!(false, "fragment::scp-4447-2");
 }
 
 #[test]
@@ -139,4 +142,5 @@ fn test_is_normal_slash() {
     check!(false, "/SCP%20xxxx");
     check!(true, "/scp-xxxx");
     check!(true, "/fragment:scp-4447-2");
+    check!(false, "/fragment::scp-4447-2");
 }

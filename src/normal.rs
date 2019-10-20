@@ -117,6 +117,11 @@ pub fn is_normal(name: &str, slash: bool) -> bool {
         return false;
     }
 
+    // Check multiple colons
+    if MULTIPLE_COLONS.find(name).is_some() {
+        return false;
+    }
+
     // Has leading or trailing dashes
     if START_DASHES.find(name).is_some() {
         return false;
