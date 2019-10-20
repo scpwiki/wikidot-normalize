@@ -18,6 +18,7 @@ use std::str::Utf8Error;
 
 lazy_static! {
     static ref NON_URL: Regex = Regex::new(r"([^\w:/\-]+|-{2,})").unwrap();
+    static ref MULTIPLE_COLONS: Regex = Regex::new(r":{2,}").unwrap();
     static ref START_DASHES: Regex = Regex::new(r"(^|/+)(?P<dash>-+)").unwrap();
     static ref END_DASHES: Regex = Regex::new(r"(?P<dash>-+)($|/+)").unwrap();
 }
@@ -58,6 +59,13 @@ pub fn normalize_decode(name: &mut String) {
 pub fn normalize(name: &mut String) {
     // Lowercase
     name.make_ascii_lowercase();
+
+    // Squash multiple colons
+    while let Some(mtch) = MULTIPLE_COLONS.find(name) {
+        let start = mtch.start();
+        let end = mtch.end();
+        name.replace_range(start..end, ":");
+    }
 
     // Convert non-URL characters to dashes
     while let Some(mtch) = NON_URL.find(name) {
