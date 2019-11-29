@@ -11,6 +11,9 @@ version = "0.3.0"
 authors = ["Ammon Smith <ammon.i.smith@gmail.com>"]
 edition = "2018" # this refers to the Cargo.toml version
 
+[badges]
+travis-ci = { repository = "Nu-SCPTheme/wikidot-normalize" }
+
 [dependencies]
 lazy_static = "1"
 log = "0.4"
