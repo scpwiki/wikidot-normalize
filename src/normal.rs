@@ -22,6 +22,7 @@ lazy_static! {
     static ref START_DASHES: Regex = Regex::new(r"(^|/+)(?P<dash>-+)").unwrap();
     static ref END_DASHES: Regex = Regex::new(r"(?P<dash>-+)($|/+)").unwrap();
     static ref MULTIPLE_SLASHES: Regex = Regex::new(r"/{2,}").unwrap();
+    static ref END_SLASHES: Regex = Regex::new(r"/+$").unwrap();
 }
 
 #[inline]
@@ -99,6 +100,15 @@ pub fn normalize(name: &mut String) {
         let start = mtch.start();
         let end = mtch.end();
         name.replace_range(start..end, "/");
+    }
+
+    // Remove trailing slashes, unless it's just '/'
+    if name.len() > 1 {
+        while let Some(mtch) = END_SLASHES.find(name) {
+            let start = mtch.start();
+            let end = mtch.end();
+            name.replace_range(start..end, "");
+        }
     }
 }
 
