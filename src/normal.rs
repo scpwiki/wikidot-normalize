@@ -149,5 +149,15 @@ pub fn is_normal(name: &str, slash: bool) -> bool {
         return false;
     }
 
+    // Check multiple slashes
+    if MULTIPLE_SLASHES.find(name).is_some() {
+        return false;
+    }
+
+    // Has trailing slashes
+    if name.len() > 1 && END_SLASHES.find(name).is_some() {
+        return false;
+    }
+
     true
 }

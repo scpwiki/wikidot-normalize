@@ -93,11 +93,6 @@ fn test_is_normal() {
     check!(true, "scp-1000");
     check!(true, "end-of-death-hub");
     check!(false, "End of Death Hub");
-    check!(true, "/");
-    check!(true, "/scp-1000");
-    check!(false, "/scp-1000/");
-    check!(false, "/scp-1000//");
-    check!(false, "//scp-1000/");
     check!(false, "$200 please");
     check!(true, "snake_case");
     check!(true, "kebab-case");
@@ -137,8 +132,12 @@ fn test_is_normal_slash() {
     check!(true, "page/discuss");
     check!(false, "/-test-");
     check!(false, "/-test-/");
-    check!(true, "/test");
-    check!(false, "/test/");
+    check!(true, "/");
+    check!(true, "/scp-1000");
+    check!(false, "scp-1000/");
+    check!(false, "/scp-1000/");
+    check!(false, "/scp-1000//");
+    check!(false, "//scp-1000/");
     check!(false, "/Tufto's Proposal---");
     check!(false, "/ page /-yeah-/ thing");
     check!(false, "/ page /-yeah-/ ");
