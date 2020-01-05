@@ -21,6 +21,7 @@ lazy_static! {
     static ref MULTIPLE_COLONS: Regex = Regex::new(r":{2,}").unwrap();
     static ref START_DASHES: Regex = Regex::new(r"(^|/+)(?P<dash>-+)").unwrap();
     static ref END_DASHES: Regex = Regex::new(r"(?P<dash>-+)($|/+)").unwrap();
+    static ref MULTIPLE_SLASHES: Regex = Regex::new(r"/{2,}").unwrap();
 }
 
 #[inline]
@@ -91,6 +92,13 @@ pub fn normalize(name: &mut String) {
     while let Some(captures) = END_DASHES.captures(name) {
         let range = get_range(captures);
         name.replace_range(range, "");
+    }
+
+    // Squash multiple slashes
+    while let Some(mtch) = MULTIPLE_SLASHES.find(name) {
+        let start = mtch.start();
+        let end = mtch.end();
+        name.replace_range(start..end, "/");
     }
 }
 
