@@ -39,16 +39,17 @@ fn test_normalize() {
     check!("fragment::scp-4447-2", "fragment:scp-4447-2");
 
     check!("/", "/");
-    check!("/scp-1000/", "/scp-1000/");
+    check!("/scp-1000/", "/scp-1000");
     check!("/SCP 4447/ofFSEt/2", "/scp-4447/offset/2");
     check!("page/discuss", "page/discuss");
-    check!("/-test-/", "/test/");
+    check!("/-test-/", "/test");
+    check!("/test/", "/test");
     check!("/Tufto's Proposal---", "/tufto-s-proposal");
-    check!("page/-", "page/");
+    check!("page/-", "page");
     check!("/ page /-yeah-/ thing ", "/page/yeah/thing");
 
     check!("/SCP%20xxxx", "/scp-20xxxx");
-    check!("/scp%20xxxx/", "/scp-20xxxx/");
+    check!("/scp%20xxxx/", "/scp-20xxxx");
     check!("%20scp%20%20xxxx", "20scp-20-20xxxx");
 }
 
@@ -63,7 +64,7 @@ fn test_normalize_decode() {
     }
 
     check!("/SCP%20xxxx", "/scp-xxxx");
-    check!("/scp%20xxxx/", "/scp-xxxx/");
+    check!("/scp%20xxxx/", "/scp-xxxx");
     check!("%20scp%20%20xxxx", "scp-xxxx");
     check!("Component%3Aimage block", "component:image-block");
     check!("/fragment:scp-4447-2", "/fragment:scp-4447-2");
@@ -92,6 +93,11 @@ fn test_is_normal() {
     check!(true, "scp-1000");
     check!(true, "end-of-death-hub");
     check!(false, "End of Death Hub");
+    check!(true, "/");
+    check!(true, "/scp-1000");
+    check!(false, "/scp-1000/");
+    check!(false, "/scp-1000//");
+    check!(false, "//scp-1000/");
     check!(false, "$200 please");
     check!(true, "snake_case");
     check!(true, "kebab-case");
@@ -123,13 +129,16 @@ fn test_is_normal_slash() {
     }
 
     check!(true, "/");
-    check!(true, "/scp-1000/");
+    check!(true, "/scp-1000");
+    check!(false, "/scp-1000/");
     check!(false, "/SCP-1000/");
     check!(true, "/scp-4447/offset/2");
     check!(false, "/SCP 4447/ofFSEt/2");
     check!(true, "page/discuss");
+    check!(false, "/-test-");
     check!(false, "/-test-/");
-    check!(true, "/test/");
+    check!(true, "/test");
+    check!(false, "/test/");
     check!(false, "/Tufto's Proposal---");
     check!(false, "/ page /-yeah-/ thing");
     check!(false, "/ page /-yeah-/ ");
