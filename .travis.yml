@@ -10,7 +10,7 @@ os:
   - windows
 
 env:
-  - 'RUSTFLAGS=-D warnings'
+  - RUSTFLAGS='-D warnings'
 
 before_script:
   # Add rustfmt
