@@ -6,7 +6,8 @@ Simple library to provide Wikidot-compatible string normalization.
 Wikidot normal form is used in the site's page names. Essentially it ensures the following:
 
 * All ASCII is lowercase.
-* All characters outside of `_`, `:`, `a-z`, `0-9`, or `-` are replaced with dashes.
+* All characters outside of `:`, `a-z`, `0-9`, or `-` are replaced with dashes.
+* Underscores are only permitted as the first character.
 * Any leading or trailing dashes are removed.
 * Any set of multiple dashes are replaced with a single dash.
 * Any set of multiple slashes are replaced with a single slash.
