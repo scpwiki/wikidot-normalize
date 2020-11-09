@@ -129,18 +129,22 @@ pub fn normalize(name: &mut String) {
 /// Determines if an arbitrary string is already in Wikidot normalized form.
 ///
 /// If `slash` is true, the forward slash character is also accepted.
-pub fn is_normal(name: &str, slash: bool) -> bool {
+pub fn is_normal(mut name: &str, slash: bool) -> bool {
     // Is all lowercase
-    let is_valid_char = |(idx, ch): (usize, char)| -> bool {
+    let is_valid_char = |ch: char| -> bool {
         ch.is_ascii_lowercase()
             || ch.is_digit(10)
             || ch == ':'
             || ch == '-'
-            || (idx == 0 && ch == '_')
             || (slash && ch == '/')
     };
 
-    if !name.chars().enumerate().all(is_valid_char) {
+    // Exception for leading underscore
+    if name.starts_with('_') {
+        name = &name[1..];
+    }
+
+    if !name.chars().all(is_valid_char) {
         return false;
     }
 
