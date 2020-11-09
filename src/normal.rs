@@ -131,16 +131,16 @@ pub fn normalize(name: &mut String) {
 /// If `slash` is true, the forward slash character is also accepted.
 pub fn is_normal(name: &str, slash: bool) -> bool {
     // Is all lowercase
-    let is_valid_char = |ch: char| -> bool {
+    let is_valid_char = |(idx, ch): (usize, char)| -> bool {
         ch.is_ascii_lowercase()
             || ch.is_digit(10)
             || ch == ':'
             || ch == '-'
-            || ch == '_'
+            || (idx == 0 && ch == '_')
             || (slash && ch == '/')
     };
 
-    if !name.chars().all(is_valid_char) {
+    if !name.chars().enumerate().all(is_valid_char) {
         return false;
     }
 
