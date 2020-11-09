@@ -59,6 +59,15 @@ pub fn normalize_decode(name: &mut String) {
 /// * `Tufto's Proposal` -> `tufto-s-proposal`
 /// * `-test-` -> `test`
 pub fn normalize(name: &mut String) {
+    let has_underscore = {
+        if name.starts_with('_') {
+            name.remove(0);
+            true
+        } else {
+            false
+        }
+    };
+
     // Lowercase
     name.make_ascii_lowercase();
 
@@ -109,6 +118,11 @@ pub fn normalize(name: &mut String) {
             let end = mtch.end();
             name.replace_range(start..end, "");
         }
+    }
+
+    // Re-add leading underscore, if it exists
+    if has_underscore {
+        name.insert(0, '_');
     }
 }
 
