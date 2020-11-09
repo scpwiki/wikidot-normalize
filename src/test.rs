@@ -30,8 +30,12 @@ fn test_normalize() {
     check!("-test-", "test");
     check!("End of Death Hub", "end-of-death-hub");
     check!("$100 is a lot of money", "100-is-a-lot-of-money");
-    check!("snake_case", "snake_case");
-    check!("long__snake__case", "long__snake__case");
+    check!("snake_case", "snake-case");
+    check!("long__snake__case", "long-snake-case");
+    check!("_template", "_template");
+    check!("__template", "_template");
+    check!("template_", "template");
+    check!("template__", "template");
     check!(" <[ TEST ]> ", "test");
     check!("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!", "");
     check!("Component:image block", "component:image-block");
@@ -94,8 +98,10 @@ fn test_is_normal() {
     check!(true, "end-of-death-hub");
     check!(false, "End of Death Hub");
     check!(false, "$200 please");
-    check!(true, "snake_case");
     check!(true, "kebab-case");
+    check!(false, "snake_case");
+    check!(true, "_template");
+    check!(false, "__template");
     check!(false, "<[ TEST ]>");
     check!(false, " <[ TEST ]> ");
     check!(false, "!!!!!!!!!!!!");
