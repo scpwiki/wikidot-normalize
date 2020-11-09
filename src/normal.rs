@@ -17,7 +17,7 @@ use std::mem;
 use std::str::Utf8Error;
 
 lazy_static! {
-    static ref NON_URL: Regex = Regex::new(r"([^\w:/\-]+|-{2,})").unwrap();
+    static ref NON_URL: Regex = Regex::new(r"([^a-z0-9:/\-]+|-{2,})").unwrap();
     static ref MULTIPLE_COLONS: Regex = Regex::new(r":{2,}").unwrap();
     static ref START_DASHES: Regex = Regex::new(r"(^|/+)(?P<dash>-+)").unwrap();
     static ref END_DASHES: Regex = Regex::new(r"(?P<dash>-+)($|/+)").unwrap();
