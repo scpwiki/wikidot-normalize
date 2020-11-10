@@ -24,7 +24,6 @@ macro_rules! regex {
 }
 
 regex!(NON_NORMAL, r"([^a-z0-9\-:_]");
-regex!(LEADING_UNDERSCORE, r"^_");
 regex!(LEADING_OR_TRAILING_DASHES, r"(^-+)|(-+$)");
 regex!(MULTIPLE_DASHES, r"-{2,}");
 regex!(MULTIPLE_COLONS, r":{2,}");
@@ -60,7 +59,6 @@ pub fn normalize(text: &mut String) {
 
     // Run through the regular expression substitutions.
     replace_in_place(text, &*NON_NORMAL, "-");
-    replace_in_place(text, &*LEADING_UNDERSCORE, ":_");
     // TODO "(?<!:)_" -> "-", negative look-behind, wtf lol
     // I think this means "the first underscore before any colons"
     replace_in_place(text, &*LEADING_OR_TRAILING_DASHES, "");
