@@ -72,7 +72,7 @@ pub fn normalize(text: &mut String) {
 }
 
 /// Determines if an arbitrary string is already in Wikidot normalized form.
-pub fn is_normal(mut name: &str) -> bool {
+pub fn is_normal(name: &str) -> bool {
     todo!()
 }
 
