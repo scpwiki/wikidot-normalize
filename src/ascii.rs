@@ -303,5 +303,5 @@ pub fn transform(text: &str) -> String {
 pub fn transform_in_place(text: &mut String) {
     let result = &mut transform(&text);
 
-    mem::replace(text, result);
+    mem::swap(text, result);
 }

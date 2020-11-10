@@ -11,14 +11,21 @@
  *
  */
 
+use crate::ascii;
 use regex::Regex;
 use trim_in_place::TrimInPlace;
 
 lazy_static! {
-    static ref NON_URL: Regex = Regex::new(r"([^a-z0-9:/\-]+|-{2,})").unwrap();
+    static ref NON_NORMAL: Regex = Regex::new(r"([^a-z0-9\-:_]").unwrap();
+    static ref LEADING_UNDERSCORE: Regex = Regex::new(r"^_").unwrap();
+    static ref LEADING_DASHES: Regex = Regex::new(r"^-+").unwrap();
+    static ref TRAILING_DASHES: Regex = Regex::new(r"-+$").unwrap();
+    static ref MULTIPLE_DASHES: Regex = Regex::new(r"-{2,}").unwrap();
     static ref MULTIPLE_COLONS: Regex = Regex::new(r":{2,}").unwrap();
-    static ref START_DASHES: Regex = Regex::new(r"(^|/+)(?P<dash>-+)").unwrap();
-    static ref END_DASHES: Regex = Regex::new(r"(?P<dash>-+)($|/+)").unwrap();
+    static ref COLON_DASH: Regex = Regex::new(r":-|-:").unwrap();
+    static ref UNDERSCORE_DASH: Regex = Regex::new(r"_-|-_").unwrap();
+    static ref LEADING_COLON: Regex = Regex::new(r"^:").unwrap();
+    static ref TRAILING_COLON: Regex = Regex::new(r":$").unwrap();
 }
 
 /// Converts an arbitrary string into Wikidot normalized form.
@@ -31,97 +38,40 @@ lazy_static! {
 /// * `bottom--Text` -> `bottom-text`
 /// * `Tufto's Proposal` -> `tufto-s-proposal`
 /// * `-test-` -> `test`
-pub fn normalize(name: &mut String) {
-    let has_underscore = {
-        if name.starts_with('_') {
-            name.remove(0);
-            true
-        } else {
-            false
-        }
-    };
+pub fn normalize(text: &mut String) {
+    // Remove leading and trailing whitespace
+    //
+    // Note that stdlib .trim() is &str -> &str,
+    // we want this to be in-place on a String.
+    text.trim_in_place();
 
-    // Lowercase
-    name.make_ascii_lowercase();
+    // Transform latin-like characters into ASCII.
+    // See ascii module for more details.
+    ascii::transform_in_place(text);
 
-    // Squash multiple colons
-    while let Some(mtch) = MULTIPLE_COLONS.find(name) {
-        let start = mtch.start();
-        let end = mtch.end();
-        name.replace_range(start..end, ":");
-    }
+    // Lowercase all ASCII alphabetic characters.
+    // Combined with the previous transformation this should
+    // lowercase every character we care about (and permit in normal form anyways).
+    text.make_ascii_lowercase();
 
-    // Convert non-URL characters to dashes
-    while let Some(mtch) = NON_URL.find(name) {
-        let start = mtch.start();
-        let end = mtch.end();
-        name.replace_range(start..end, "-");
-    }
-
-    // Remove leading and trailing dashes
-    let get_range = |captures: regex::Captures| {
-        let mtch = captures.name("dash").unwrap();
-        let start = mtch.start();
-        let end = mtch.end();
-
-        start..end
-    };
-
-    while let Some(captures) = START_DASHES.captures(name) {
-        let range = get_range(captures);
-        name.replace_range(range, "");
-    }
-
-    while let Some(captures) = END_DASHES.captures(name) {
-        let range = get_range(captures);
-        name.replace_range(range, "");
-    }
-
-    // Re-add leading underscore, if it exists
-    if has_underscore {
-        name.insert(0, '_');
-    }
+    // Run through the regular expression substitutions.
+    replace_in_place(text, &*NON_NORMAL, "-");
+    replace_in_place(text, &*LEADING_UNDERSCORE, ":_");
+    // TODO "(?<!:)_" -> "-", negative look-behind, wtf lol
+    // I think this means "the first underscore before any colons"
+    replace_in_place(text, &*LEADING_DASHES, "");
+    replace_in_place(text, &*TRAILING_DASHES, "");
+    replace_in_place(text, &*MULTIPLE_DASHES, "-");
+    replace_in_place(text, &*MULTIPLE_COLONS, ":");
+    replace_in_place(text, &*COLON_DASH, ":");
+    replace_in_place(text, &*UNDERSCORE_DASH, "_");
+    replace_in_place(text, &*LEADING_COLON, "");
+    replace_in_place(text, &*TRAILING_COLON, "");
 }
 
 /// Determines if an arbitrary string is already in Wikidot normalized form.
 pub fn is_normal(mut name: &str) -> bool {
-    // Is all lowercase
-    let is_valid_char = |ch: char| -> bool {
-        ch.is_ascii_lowercase()
-            || ch.is_digit(10)
-            || ch == ':'
-            || ch == '-'
-    };
-
-    // Exception for leading underscore
-    if name.starts_with('_') {
-        name = &name[1..];
-    }
-
-    if !name.chars().all(is_valid_char) {
-        return false;
-    }
-
-    // No special characters
-    if NON_URL.find(name).is_some() {
-        return false;
-    }
-
-    // Check multiple colons
-    if MULTIPLE_COLONS.find(name).is_some() {
-        return false;
-    }
-
-    // Has leading or trailing dashes
-    if START_DASHES.find(name).is_some() {
-        return false;
-    }
-
-    if END_DASHES.find(name).is_some() {
-        return false;
-    }
-
-    true
+    todo!()
 }
 
 fn replace_in_place(text: &mut String, regex: &Regex, replace_with: &str) {
