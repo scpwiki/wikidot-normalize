@@ -18,14 +18,12 @@ use trim_in_place::TrimInPlace;
 lazy_static! {
     static ref NON_NORMAL: Regex = Regex::new(r"([^a-z0-9\-:_]").unwrap();
     static ref LEADING_UNDERSCORE: Regex = Regex::new(r"^_").unwrap();
-    static ref LEADING_DASHES: Regex = Regex::new(r"^-+").unwrap();
-    static ref TRAILING_DASHES: Regex = Regex::new(r"-+$").unwrap();
+    static ref LEADING_OR_TRAILING_DASHES: Regex = Regex::new(r"(^-+)|(-+$)").unwrap();
     static ref MULTIPLE_DASHES: Regex = Regex::new(r"-{2,}").unwrap();
     static ref MULTIPLE_COLONS: Regex = Regex::new(r":{2,}").unwrap();
     static ref COLON_DASH: Regex = Regex::new(r":-|-:").unwrap();
     static ref UNDERSCORE_DASH: Regex = Regex::new(r"_-|-_").unwrap();
-    static ref LEADING_COLON: Regex = Regex::new(r"^:").unwrap();
-    static ref TRAILING_COLON: Regex = Regex::new(r":$").unwrap();
+    static ref LEADING_OR_TRAILING_COLON: Regex = Regex::new(r"(^:)|(:$)").unwrap();
 }
 
 /// Converts an arbitrary string into Wikidot normalized form.
@@ -59,14 +57,12 @@ pub fn normalize(text: &mut String) {
     replace_in_place(text, &*LEADING_UNDERSCORE, ":_");
     // TODO "(?<!:)_" -> "-", negative look-behind, wtf lol
     // I think this means "the first underscore before any colons"
-    replace_in_place(text, &*LEADING_DASHES, "");
-    replace_in_place(text, &*TRAILING_DASHES, "");
+    replace_in_place(text, &*LEADING_OR_TRAILING_DASHES, "");
     replace_in_place(text, &*MULTIPLE_DASHES, "-");
     replace_in_place(text, &*MULTIPLE_COLONS, ":");
     replace_in_place(text, &*COLON_DASH, ":");
     replace_in_place(text, &*UNDERSCORE_DASH, "_");
-    replace_in_place(text, &*LEADING_COLON, "");
-    replace_in_place(text, &*TRAILING_COLON, "");
+    replace_in_place(text, &*LEADING_OR_TRAILING_COLON, "");
 }
 
 /// Determines if an arbitrary string is already in Wikidot normalized form.
