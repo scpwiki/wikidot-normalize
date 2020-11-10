@@ -41,38 +41,6 @@ fn test_normalize() {
     check!("Component:image block", "component:image-block");
     check!("fragment:scp-4447-2", "fragment:scp-4447-2");
     check!("fragment::scp-4447-2", "fragment:scp-4447-2");
-
-    check!("/", "/");
-    check!("/scp-1000/", "/scp-1000");
-    check!("/SCP 4447/ofFSEt/2", "/scp-4447/offset/2");
-    check!("page/discuss", "page/discuss");
-    check!("/-test-/", "/test");
-    check!("/test/", "/test");
-    check!("/Tufto's Proposal---", "/tufto-s-proposal");
-    check!("page/-", "page");
-    check!("/ page /-yeah-/ thing ", "/page/yeah/thing");
-
-    check!("/SCP%20xxxx", "/scp-20xxxx");
-    check!("/scp%20xxxx/", "/scp-20xxxx");
-    check!("%20scp%20%20xxxx", "20scp-20-20xxxx");
-}
-
-#[test]
-fn test_normalize_decode() {
-    macro_rules! check {
-        ($input:expr, $expected:expr) => {{
-            let mut text = str!($input);
-            normalize_decode(&mut text);
-            assert_eq!(text, $expected, "Normalized text doesn't match expected");
-        }};
-    }
-
-    check!("/SCP%20xxxx", "/scp-xxxx");
-    check!("/scp%20xxxx/", "/scp-xxxx");
-    check!("%20scp%20%20xxxx", "scp-xxxx");
-    check!("Component%3Aimage block", "component:image-block");
-    check!("/fragment:scp-4447-2", "/fragment:scp-4447-2");
-    check!("/fragment::scp-4447-2", "/fragment:scp-4447-2");
 }
 
 #[test]
@@ -80,7 +48,7 @@ fn test_is_normal() {
     macro_rules! check {
         ($expected:expr, $input:expr) => {{
             assert_eq!(
-                is_normal($input, false),
+                is_normal($input),
                 $expected,
                 "Normalization test failed: {}",
                 $input,
@@ -108,53 +76,4 @@ fn test_is_normal() {
     check!(false, "Component:image-block");
     check!(true, "component:image-block");
     check!(false, "fragment::scp-4447-2");
-}
-
-#[test]
-fn test_is_normal_slash() {
-    macro_rules! check {
-        ($expected:expr, $input:expr) => {{
-            assert_eq!(
-                is_normal($input, true),
-                $expected,
-                "Path normalization test failed: {}",
-                $input,
-            );
-
-            assert!(
-                !is_normal($input, false),
-                "Path normalization test passed: {}",
-                $input,
-            );
-        }};
-    }
-
-    check!(true, "/");
-    check!(true, "/scp-1000");
-    check!(false, "/scp-1000/");
-    check!(false, "/SCP-1000/");
-    check!(true, "/scp-4447/offset/2");
-    check!(false, "/SCP 4447/ofFSEt/2");
-    check!(true, "page/discuss");
-    check!(false, "/-test-");
-    check!(false, "/-test-/");
-    check!(true, "/");
-    check!(true, "/scp-1000");
-    check!(false, "scp-1000/");
-    check!(false, "/scp-1000/");
-    check!(false, "/scp-1000//");
-    check!(false, "//scp-1000/");
-    check!(false, "/Tufto's Proposal---");
-    check!(false, "/ page /-yeah-/ thing");
-    check!(false, "/ page /-yeah-/ ");
-    check!(false, "/ page /-yeah-");
-    check!(false, "/ page /-");
-    check!(false, "/ page");
-
-    check!(false, "/scp xxxx");
-    check!(false, "/scp%20xxxx");
-    check!(false, "/SCP%20xxxx");
-    check!(true, "/scp-xxxx");
-    check!(true, "/fragment:scp-4447-2");
-    check!(false, "/fragment::scp-4447-2");
 }

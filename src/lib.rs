@@ -27,7 +27,6 @@ extern crate lazy_static;
 
 #[macro_use]
 extern crate log;
-extern crate percent_encoding;
 extern crate regex;
 
 #[cfg(test)]
@@ -39,7 +38,7 @@ mod normal;
 #[cfg(test)]
 mod test;
 
-pub use self::normal::{is_normal, normalize, normalize_decode};
+pub use self::normal::{is_normal, normalize};
 
 /// A "prelude" for consumers of the `wikidot-normalize` crate.
 ///
@@ -47,5 +46,5 @@ pub use self::normal::{is_normal, normalize, normalize_decode};
 /// for convenience without requiring programs to do a glob import of
 /// the whole crate.
 pub mod prelude {
-    pub use super::normal::{is_normal, normalize, normalize_decode};
+    pub use super::normal::{is_normal, normalize};
 }
