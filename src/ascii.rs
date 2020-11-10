@@ -281,3 +281,16 @@ lazy_static! {
         }
     };
 }
+
+pub fn transform(text: &str) -> String {
+    let mut result = String::new();
+
+    for ch in text.chars() {
+        match CHAR_TRANSFORMS.get(&ch) {
+            Some(s) => result.push_str(s),
+            None => result.push(ch),
+        }
+    }
+
+    result
+}
