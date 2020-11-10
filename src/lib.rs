@@ -24,12 +24,14 @@
 
 #[macro_use]
 extern crate lazy_static;
+extern crate maplit;
 extern crate regex;
 
 #[cfg(test)]
 #[macro_use]
 extern crate str_macro;
 
+mod ascii;
 mod normal;
 
 #[cfg(test)]
