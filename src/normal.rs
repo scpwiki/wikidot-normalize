@@ -76,6 +76,8 @@ pub fn is_normal(mut name: &str) -> bool {
     todo!()
 }
 
+// Helpers
+
 fn replace_in_place(text: &mut String, regex: &Regex, replace_with: &str) {
     use regex::Captures;
     use std::ops::Range;
