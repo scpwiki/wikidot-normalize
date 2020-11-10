@@ -21,8 +21,8 @@ lazy_static! {
     static ref LEADING_OR_TRAILING_DASHES: Regex = Regex::new(r"(^-+)|(-+$)").unwrap();
     static ref MULTIPLE_DASHES: Regex = Regex::new(r"-{2,}").unwrap();
     static ref MULTIPLE_COLONS: Regex = Regex::new(r":{2,}").unwrap();
-    static ref COLON_DASH: Regex = Regex::new(r":-|-:").unwrap();
-    static ref UNDERSCORE_DASH: Regex = Regex::new(r"_-|-_").unwrap();
+    static ref COLON_DASH: Regex = Regex::new(r"(:-)|(-:)").unwrap();
+    static ref UNDERSCORE_DASH: Regex = Regex::new(r"(_-)|(-_)").unwrap();
     static ref LEADING_OR_TRAILING_COLON: Regex = Regex::new(r"(^:)|(:$)").unwrap();
 }
 
