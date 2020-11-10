@@ -18,6 +18,7 @@ travis-ci = { repository = "Nu-SCPTheme/wikidot-normalize", branch = "master" }
 lazy_static = "1"
 maplit = "1"
 regex = "1"
+trim_in_place = "0.1"
 
 [dev-dependencies]
 str-macro = "0.1"

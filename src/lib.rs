@@ -30,6 +30,7 @@ extern crate regex;
 #[cfg(test)]
 #[macro_use]
 extern crate str_macro;
+extern crate trim_in_place;
 
 mod ascii;
 mod normal;

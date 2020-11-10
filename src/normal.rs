@@ -12,6 +12,7 @@
  */
 
 use regex::Regex;
+use trim_in_place::TrimInPlace;
 
 lazy_static! {
     static ref NON_URL: Regex = Regex::new(r"([^a-z0-9:/\-]+|-{2,})").unwrap();
