@@ -123,3 +123,21 @@ pub fn is_normal(mut name: &str) -> bool {
 
     true
 }
+
+fn replace_in_place(text: &mut String, regex: &Regex, replace_with: &str) {
+    use regex::Captures;
+    use std::ops::Range;
+
+    fn get_range(captures: Captures) -> Range<usize> {
+        let mtch = captures.get(0).unwrap();
+        let start = mtch.start();
+        let end = mtch.end();
+
+        start..end
+    }
+
+    while let Some(captures) = regex.captures(text) {
+        let range = get_range(captures);
+        text.replace_range(range, replace_with);
+    }
+}
