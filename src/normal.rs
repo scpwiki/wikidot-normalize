@@ -15,16 +15,22 @@ use crate::ascii;
 use regex::Regex;
 use trim_in_place::TrimInPlace;
 
-lazy_static! {
-    static ref NON_NORMAL: Regex = Regex::new(r"([^a-z0-9\-:_]").unwrap();
-    static ref LEADING_UNDERSCORE: Regex = Regex::new(r"^_").unwrap();
-    static ref LEADING_OR_TRAILING_DASHES: Regex = Regex::new(r"(^-+)|(-+$)").unwrap();
-    static ref MULTIPLE_DASHES: Regex = Regex::new(r"-{2,}").unwrap();
-    static ref MULTIPLE_COLONS: Regex = Regex::new(r":{2,}").unwrap();
-    static ref COLON_DASH: Regex = Regex::new(r"(:-)|(-:)").unwrap();
-    static ref UNDERSCORE_DASH: Regex = Regex::new(r"(_-)|(-_)").unwrap();
-    static ref LEADING_OR_TRAILING_COLON: Regex = Regex::new(r"(^:)|(:$)").unwrap();
+macro_rules! regex {
+    ($name:tt, $expr:expr) => {
+        lazy_static! {
+            static ref $name: Regex = Regex::new($expr).unwrap();
+        }
+    };
 }
+
+regex!(NON_NORMAL, r"([^a-z0-9\-:_]");
+regex!(LEADING_UNDERSCORE, r"^_");
+regex!(LEADING_OR_TRAILING_DASHES, r"(^-+)|(-+$)");
+regex!(MULTIPLE_DASHES, r"-{2,}");
+regex!(MULTIPLE_COLONS, r":{2,}");
+regex!(COLON_DASH, r"(:-)|(-:)");
+regex!(UNDERSCORE_DASH, r"(_-)|(-_)");
+regex!(LEADING_OR_TRAILING_COLON, r"(^:)|(:$)");
 
 /// Converts an arbitrary string into Wikidot normalized form.
 ///
