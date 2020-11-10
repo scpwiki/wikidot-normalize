@@ -17,6 +17,7 @@
 
 use maplit::hashmap;
 use std::collections::HashMap;
+use std::mem;
 
 lazy_static! {
     static ref CHAR_TRANSFORMS: HashMap<char, &'static str> = {
@@ -293,4 +294,14 @@ pub fn transform(text: &str) -> String {
     }
 
     result
+}
+
+/// Convenience function for replacing the passed in `String` with the result.
+///
+/// Doesn't actually transform in-place, if I could've thought of a
+/// good implementation for that I would've just made `transform()` do that.
+pub fn transform_in_place(text: &mut String) {
+    let result = &mut transform(&text);
+
+    mem::replace(text, result);
 }
