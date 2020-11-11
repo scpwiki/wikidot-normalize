@@ -107,7 +107,9 @@ fn test_normalize() {
     check!("snake_case", "snake-case");
     check!("long__snake__case", "long-snake-case");
     check!("_template", "_template");
+    check!("_template_", "_template");
     check!("__template", "_template");
+    check!("__template_", "_template");
     check!("template_", "template");
     check!("template__", "template");
     check!(" <[ TEST ]> ", "test");
@@ -115,4 +117,15 @@ fn test_normalize() {
     check!("Component:image block", "component:image-block");
     check!("fragment:scp-4447-2", "fragment:scp-4447-2");
     check!("fragment::scp-4447-2", "fragment:scp-4447-2");
+    check!("FRAGMENT:SCP-4447 (2)", "fragment:scp-4447-2");
+    check!("fragment:_template", "fragment:_template");
+    check!("fragment:__template", "fragment:_template");
+    check!("fragment:_template_", "fragment:_template");
+    check!("fragment::_template", "fragment:_template");
+    check!("protected:fragment:_template", "protected:fragment:_template");
+    check!("protected:fragment:__template", "protected:fragment:_template");
+    check!("protected:fragment:_template_", "protected:fragment:_template");
+    check!("protected:fragment::_template", "protected:fragment:_template");
+    check!("protected::fragment:_template", "protected:fragment:_template");
+    check!("protected::fragment::_template", "protected:fragment:_template");
 }
