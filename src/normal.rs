@@ -119,6 +119,9 @@ fn test_normalize() {
     check!(" - Test - ", "test");
     check!("--TEST--", "test");
     check!("-test-", "test");
+    check!(":test", "test");
+    check!("test:", "test");
+    check!(":test:", "test");
     check!("/Some Page", "some-page");
     check!("some/Page", "some-page");
     check!("some,Page", "some-page");
