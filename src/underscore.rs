@@ -50,9 +50,9 @@ pub fn replace_underscores(text: &mut String) {
 
 #[test]
 fn test_replace_underscores() {
-    macro_rules! test {
+    macro_rules! check {
         ($input:expr, $expected:expr,) => {
-            test!($input, $expected)
+            check!($input, $expected)
         };
         ($input:expr, $expected:expr) => {{
             let mut text = str!($input);
@@ -66,43 +66,43 @@ fn test_replace_underscores() {
         }};
     }
 
-    test!("", "");
-    test!("a", "a");
-    test!("_a", "_a");
-    test!("a_", "a-");
-    test!("page-name", "page-name");
-    test!("_template", "_template");
-    test!("__template", "_-template");
-    test!("_template_", "_template-");
-    test!("_special_page", "_special-page");
-    test!("_special__page", "_special--page");
-    test!("fragment:page-name", "fragment:page-name");
-    test!("fragment:_template", "fragment:_template");
-    test!("fragment:__template", "fragment:_-template");
-    test!("fragment:_template_", "fragment:_template-");
-    test!("fragment:_special_page", "fragment:_special-page");
-    test!("fragment:_special__page", "fragment:_special--page");
-    test!(
+    check!("", "");
+    check!("a", "a");
+    check!("_a", "_a");
+    check!("a_", "a-");
+    check!("page-name", "page-name");
+    check!("_template", "_template");
+    check!("__template", "_-template");
+    check!("_template_", "_template-");
+    check!("_special_page", "_special-page");
+    check!("_special__page", "_special--page");
+    check!("fragment:page-name", "fragment:page-name");
+    check!("fragment:_template", "fragment:_template");
+    check!("fragment:__template", "fragment:_-template");
+    check!("fragment:_template_", "fragment:_template-");
+    check!("fragment:_special_page", "fragment:_special-page");
+    check!("fragment:_special__page", "fragment:_special--page");
+    check!(
         "protected:fragment:page-name",
         "protected:fragment:page-name",
     );
-    test!(
+    check!(
         "protected:fragment:_template",
         "protected:fragment:_template",
     );
-    test!(
+    check!(
         "protected:fragment:__template",
         "protected:fragment:_-template",
     );
-    test!(
+    check!(
         "protected:fragment:_template_",
         "protected:fragment:_template-",
     );
-    test!(
+    check!(
         "protected:fragment:_special_page",
         "protected:fragment:_special-page",
     );
-    test!(
+    check!(
         "protected:fragment:_special__page",
         "protected:fragment:_special--page",
     );
