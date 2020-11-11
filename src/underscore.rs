@@ -67,6 +67,9 @@ fn test_replace_underscores() {
     }
 
     test!("", "");
+    test!("a", "a");
+    test!("_a", "_a");
+    test!("a_", "a-");
     test!("page-name", "page-name");
     test!("_template", "_template");
     test!("__template", "_-template");

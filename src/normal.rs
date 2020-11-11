@@ -113,7 +113,12 @@ fn test_normalize() {
     check!("Big Cheese Horace", "big-cheese-horace");
     check!("bottom--Text", "bottom-text");
     check!("Tufto's Proposal", "tufto-s-proposal");
+    check!(" - Test - ", "test");
+    check!("--TEST--", "test");
     check!("-test-", "test");
+    check!("/Some Page", "some-page");
+    check!("some/Page", "some-page");
+    check!("some,Page", "some-page");
     check!("End of Death Hub", "end-of-death-hub");
     check!("$100 is a lot of money", "100-is-a-lot-of-money");
     check!("snake_case", "snake-case");
@@ -124,7 +129,14 @@ fn test_normalize() {
     check!("__template_", "_template");
     check!("template_", "template");
     check!("template__", "template");
+    check!("_Template", "_template");
+    check!("_Template_", "_template");
+    check!("__Template", "_template");
+    check!("__Template_", "_template");
+    check!("Template_", "template");
+    check!("Template__", "template");
     check!(" <[ TEST ]> ", "test");
+    check!("ÄÀ-áö ðñæ_þß*řƒŦ", "aa-aoe-dnae-tss-rft");
     check!("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!", "");
     check!("Component:image block", "component:image-block");
     check!("fragment:scp-4447-2", "fragment:scp-4447-2");
