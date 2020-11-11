@@ -19,6 +19,8 @@ Wikidot normal form is used in the site's page names. Essentially it ensures the
 * `"Tufto's Proposal"` **->** `"tufto-s-proposal"`
 * `"-test-"` **->** `"test"`
 
+This library is getting close to finalization with a `v1.0.0` release.
+
 Available under the terms of the MIT License. See [LICENSE.md](LICENSE).
 
 ### Compilation
