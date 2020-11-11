@@ -102,6 +102,9 @@ fn replace_in_place(text: &mut String, regex: &Regex, replace_with: &str) {
 #[test]
 fn test_normalize() {
     macro_rules! check {
+        ($input:expr, $expected:expr,) => {
+            check!($input, $expected)
+        };
         ($input:expr, $expected:expr) => {{
             let mut text = str!($input);
             normalize(&mut text);
@@ -146,10 +149,28 @@ fn test_normalize() {
     check!("fragment:__template", "fragment:_template");
     check!("fragment:_template_", "fragment:_template");
     check!("fragment::_template", "fragment:_template");
-    check!("protected:fragment:_template", "protected:fragment:_template");
-    check!("protected:fragment:__template", "protected:fragment:_template");
-    check!("protected:fragment:_template_", "protected:fragment:_template");
-    check!("protected:fragment::_template", "protected:fragment:_template");
-    check!("protected::fragment:_template", "protected:fragment:_template");
-    check!("protected::fragment::_template", "protected:fragment:_template");
+    check!(
+        "protected:fragment:_template",
+        "protected:fragment:_template",
+    );
+    check!(
+        "protected:fragment:__template",
+        "protected:fragment:_template",
+    );
+    check!(
+        "protected:fragment:_template_",
+        "protected:fragment:_template",
+    );
+    check!(
+        "protected:fragment::_template",
+        "protected:fragment:_template",
+    );
+    check!(
+        "protected::fragment:_template",
+        "protected:fragment:_template",
+    );
+    check!(
+        "protected::fragment::_template",
+        "protected:fragment:_template",
+    );
 }
