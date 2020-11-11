@@ -60,8 +60,7 @@ pub fn normalize(text: &mut String) {
 
     // Run through the regular expression substitutions.
     replace_in_place(text, &*NON_NORMAL, "-");
-    // TODO "(?<!:)_" -> "-", negative look-behind, wtf lol
-    // I think this means "the first underscore before any colons"
+    replace_underscores(text);
     replace_in_place(text, &*LEADING_OR_TRAILING_DASHES, "");
     replace_in_place(text, &*MULTIPLE_DASHES, "-");
     replace_in_place(text, &*MULTIPLE_COLONS, ":");
