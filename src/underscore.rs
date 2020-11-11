@@ -32,17 +32,11 @@ pub fn replace_underscores(text: &mut String) {
     // Finding matching, non-conforming underscores
     for (idx, ch) in text.chars().enumerate() {
         if ch == '_' {
-            // Allow a leading underscore at the start
-            if idx == 0 {
-                continue;
+            // Allow leading underscores or after a category
+            // For others, push an index to replace later
+            if !(idx == 0 || prev_colon) {
+                matches.push(idx);
             }
-
-            // Allow a leading underscore after a category
-            if prev_colon {
-                continue;
-            }
-
-            matches.push(idx);
         }
 
         prev_colon = ch == ':';
@@ -56,4 +50,37 @@ pub fn replace_underscores(text: &mut String) {
 
 #[test]
 fn test_replace_underscores() {
+    macro_rules! test {
+        ($input:expr, $expected:expr) => {{
+            let mut text = str!($input);
+            replace_underscores(&mut text);
+
+            assert_eq!(
+                &text,
+                $expected,
+                "Underscore replacement didn't match expected (input: '{}')",
+                $input,
+            );
+        }};
+    }
+
+    test!("", "");
+    test!("page-name", "page-name");
+    test!("_template", "_template");
+    test!("__template", "_-template");
+    test!("_template_", "_template-");
+    test!("_special_page", "_special-page");
+    test!("_special__page", "_special--page");
+    test!("fragment:page-name", "fragment:page-name");
+    test!("fragment:_template", "fragment:_template");
+    test!("fragment:__template", "fragment:_-template");
+    test!("fragment:_template_", "fragment:_template-");
+    test!("fragment:_special_page", "fragment:_special-page");
+    test!("fragment:_special__page", "fragment:_special--page");
+    test!("protected:fragment:page-name", "protected:fragment:page-name");
+    test!("protected:fragment:_template", "protected:fragment:_template");
+    test!("protected:fragment:__template", "protected:fragment:_-template");
+    test!("protected:fragment:_template_", "protected:fragment:_template-");
+    test!("protected:fragment:_special_page", "protected:fragment:_special-page");
+    test!("protected:fragment:_special__page", "protected:fragment:_special--page");
 }
