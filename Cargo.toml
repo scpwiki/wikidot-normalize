@@ -7,7 +7,7 @@ license = "MIT"
 keywords = ["wikidot", "normal", "nuscp"]
 exclude = [".gitignore", ".travis.yml"]
 
-version = "0.5.0"
+version = "0.6.0"
 authors = ["Ammon Smith <ammon.i.smith@gmail.com>"]
 edition = "2018" # this refers to the Cargo.toml version
 
