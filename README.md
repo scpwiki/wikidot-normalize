@@ -10,8 +10,7 @@ Wikidot normal form is used in the site's page names. Essentially it ensures the
 * Underscores are only permitted as the first character.
 * Any leading or trailing dashes are removed.
 * Any set of multiple dashes are replaced with a single dash.
-* Any set of multiple slashes are replaced with a single slash.
-* Any trailing slashes are removed.
+* Any set of multiple colons are replaced with a single colon.
 
 **Examples:**
 
