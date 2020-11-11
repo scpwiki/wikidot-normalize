@@ -36,9 +36,6 @@ mod ascii;
 mod normal;
 mod underscore;
 
-#[cfg(test)]
-mod test;
-
 pub use self::normal::normalize;
 
 /// A "prelude" for consumers of the `wikidot-normalize` crate.
