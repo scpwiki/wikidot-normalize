@@ -42,38 +42,3 @@ fn test_normalize() {
     check!("fragment:scp-4447-2", "fragment:scp-4447-2");
     check!("fragment::scp-4447-2", "fragment:scp-4447-2");
 }
-
-#[test]
-fn test_is_normal() {
-    macro_rules! check {
-        ($expected:expr, $input:expr) => {{
-            assert_eq!(
-                is_normal($input),
-                $expected,
-                "Normalization test failed: {}",
-                $input,
-            );
-        }};
-    }
-
-    check!(true, "");
-    check!(true, "big-cheese-horace");
-    check!(false, "Big Cheese Horace");
-    check!(true, "bottom-text");
-    check!(false, "bottom-Text");
-    check!(false, "-test-");
-    check!(true, "scp-1000");
-    check!(true, "end-of-death-hub");
-    check!(false, "End of Death Hub");
-    check!(false, "$200 please");
-    check!(true, "kebab-case");
-    check!(false, "snake_case");
-    check!(true, "_template");
-    check!(false, "__template");
-    check!(false, "<[ TEST ]>");
-    check!(false, " <[ TEST ]> ");
-    check!(false, "!!!!!!!!!!!!");
-    check!(false, "Component:image-block");
-    check!(true, "component:image-block");
-    check!(false, "fragment::scp-4447-2");
-}

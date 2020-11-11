@@ -69,11 +69,6 @@ pub fn normalize(text: &mut String) {
     replace_in_place(text, &*LEADING_OR_TRAILING_COLON, "");
 }
 
-/// Determines if an arbitrary string is already in Wikidot normalized form.
-pub fn is_normal(name: &str) -> bool {
-    todo!()
-}
-
 fn replace_in_place(text: &mut String, regex: &Regex, replace_with: &str) {
     use regex::Captures;
     use std::ops::Range;

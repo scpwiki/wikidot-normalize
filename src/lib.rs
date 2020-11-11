@@ -39,7 +39,7 @@ mod underscore;
 #[cfg(test)]
 mod test;
 
-pub use self::normal::{is_normal, normalize};
+pub use self::normal::normalize;
 
 /// A "prelude" for consumers of the `wikidot-normalize` crate.
 ///
@@ -47,5 +47,5 @@ pub use self::normal::{is_normal, normalize};
 /// for convenience without requiring programs to do a glob import of
 /// the whole crate.
 pub mod prelude {
-    pub use super::normal::{is_normal, normalize};
+    pub use super::normal::normalize;
 }
