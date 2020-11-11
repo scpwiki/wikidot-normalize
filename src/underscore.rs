@@ -44,20 +44,22 @@ pub fn replace_underscores(text: &mut String) {
 
     // Replace them with dashes
     for idx in matches {
-        text.replace_range(idx..idx+1, "-");
+        text.replace_range(idx..idx + 1, "-");
     }
 }
 
 #[test]
 fn test_replace_underscores() {
     macro_rules! test {
+        ($input:expr, $expected:expr,) => {
+            test!($input, $expected)
+        };
         ($input:expr, $expected:expr) => {{
             let mut text = str!($input);
             replace_underscores(&mut text);
 
             assert_eq!(
-                &text,
-                $expected,
+                &text, $expected,
                 "Underscore replacement didn't match expected (input: '{}')",
                 $input,
             );
@@ -77,10 +79,28 @@ fn test_replace_underscores() {
     test!("fragment:_template_", "fragment:_template-");
     test!("fragment:_special_page", "fragment:_special-page");
     test!("fragment:_special__page", "fragment:_special--page");
-    test!("protected:fragment:page-name", "protected:fragment:page-name");
-    test!("protected:fragment:_template", "protected:fragment:_template");
-    test!("protected:fragment:__template", "protected:fragment:_-template");
-    test!("protected:fragment:_template_", "protected:fragment:_template-");
-    test!("protected:fragment:_special_page", "protected:fragment:_special-page");
-    test!("protected:fragment:_special__page", "protected:fragment:_special--page");
+    test!(
+        "protected:fragment:page-name",
+        "protected:fragment:page-name",
+    );
+    test!(
+        "protected:fragment:_template",
+        "protected:fragment:_template",
+    );
+    test!(
+        "protected:fragment:__template",
+        "protected:fragment:_-template",
+    );
+    test!(
+        "protected:fragment:_template_",
+        "protected:fragment:_template-",
+    );
+    test!(
+        "protected:fragment:_special_page",
+        "protected:fragment:_special-page",
+    );
+    test!(
+        "protected:fragment:_special__page",
+        "protected:fragment:_special--page",
+    );
 }
