@@ -34,6 +34,7 @@ extern crate trim_in_place;
 
 mod ascii;
 mod normal;
+mod underscore;
 
 #[cfg(test)]
 mod test;
