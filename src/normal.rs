@@ -24,7 +24,7 @@ macro_rules! regex {
     };
 }
 
-regex!(NON_NORMAL, r"([^a-z0-9\-:_]");
+regex!(NON_NORMAL, r"[^a-z0-9\-:_]");
 regex!(LEADING_OR_TRAILING_DASHES, r"(^-+)|(-+$)");
 regex!(MULTIPLE_DASHES, r"-{2,}");
 regex!(MULTIPLE_COLONS, r":{2,}");
