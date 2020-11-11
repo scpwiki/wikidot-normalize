@@ -73,7 +73,7 @@ pub fn normalize(text: &mut String) {
     replace_in_place(text, &*MULTIPLE_DASHES, "-");
     replace_in_place(text, &*MULTIPLE_COLONS, ":");
 
-    // Remove any leading or trailing dashes next to colonsor underscores.
+    // Remove any leading or trailing dashes next to colons or underscores.
     replace_in_place(text, &*COLON_DASH, ":");
     replace_in_place(text, &*UNDERSCORE_DASH, "_");
 
