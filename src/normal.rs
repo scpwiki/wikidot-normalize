@@ -176,4 +176,12 @@ fn test_normalize() {
         "protected::fragment::_template",
         "protected:fragment:_template",
     );
+    check!(
+        "protected_:fragment_:page",
+        "protected:fragment:page",
+    );
+    check!(
+        "protected:_fragment_:page",
+        "protected:_fragment:page",
+    );
 }
