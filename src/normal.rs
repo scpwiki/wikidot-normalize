@@ -58,14 +58,26 @@ pub fn normalize(text: &mut String) {
     // lowercase every character we care about (and permit in normal form anyways).
     text.make_ascii_lowercase();
 
-    // Run through the regular expression substitutions.
+    // Replace all characters not allowed in normal form.
     replace_in_place(text, &*NON_NORMAL, "-");
+
+    // Replace non-leading underscores with dashes.
+    //
+    // Permits names like "_template" or "category:_template".
     replace_underscores(text);
+
+    // Remove any leading or trailing dashes.
     replace_in_place(text, &*LEADING_OR_TRAILING_DASHES, "");
+
+    // Merge multiple dashes and colons into one.
     replace_in_place(text, &*MULTIPLE_DASHES, "-");
     replace_in_place(text, &*MULTIPLE_COLONS, ":");
+
+    // Remove any leading or trailing dashes next to colonsor underscores.
     replace_in_place(text, &*COLON_DASH, ":");
     replace_in_place(text, &*UNDERSCORE_DASH, "_");
+
+    // Remove any leading or trailing colons.
     replace_in_place(text, &*LEADING_OR_TRAILING_COLON, "");
 }
 
