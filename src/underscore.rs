@@ -32,9 +32,9 @@ pub fn replace_underscores(text: &mut String) {
     // Finding matching, non-conforming underscores
     for (idx, ch) in text.chars().enumerate() {
         if ch == '_' {
-            // Allow leading underscores or after a category
-            // For others, push an index to replace later
-            if !(idx == 0 || prev_colon) {
+            // If it's not the leading underscore, or after a category,
+            // push an index to replace it
+            if idx > 0 && !prev_colon {
                 matches.push(idx);
             }
         }
