@@ -14,6 +14,10 @@ edition = "2018" # this refers to the Cargo.toml version
 [badges]
 travis-ci = { repository = "Nu-SCPTheme/wikidot-normalize", branch = "master" }
 
+[[bench]]
+name = "perf"
+harness = false
+
 [dependencies]
 lazy_static = "1"
 maplit = "1"
@@ -21,4 +25,5 @@ regex = "1"
 trim-in-place = "0.1"
 
 [dev-dependencies]
+bencher = "*"
 str-macro = "0.1"
