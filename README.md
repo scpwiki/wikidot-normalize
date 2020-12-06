@@ -1,5 +1,11 @@
 ## wikidot-normalize
-[![Build Status](https://travis-ci.org/Nu-SCPTheme/wikidot-normalize.svg?branch=master)](https://travis-ci.org/Nu-SCPTheme/wikidot-normalize)
+
+<p>
+  <a href="https://github.com/Nu-SCPTheme/wikidot-normalize/actions?query=workflow%3A%22Rust+CI%22">
+    <img src="https://github.com/Nu-SCPTheme/wikidot-normalize/workflows/Rust%20CI/badge.svg"
+         alt="Rust CI badge">
+  </a>
+</p>
 
 Simple library to provide Wikidot-compatible string normalization. It attempts to be a Rust port of the functionality in [`WDStringUtils::toUnixName`](https://github.com/scpwiki/wikijump/blob/master/php/utils/WDStringUtils.php).
 
