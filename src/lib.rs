@@ -37,12 +37,3 @@ mod normal;
 mod underscore;
 
 pub use self::normal::normalize;
-
-/// A "prelude" for consumers of the `wikidot-normalize` crate.
-///
-/// This prelude includes all exports from the crate, and is provided
-/// for convenience without requiring programs to do a glob import of
-/// the whole crate.
-pub mod prelude {
-    pub use super::normal::normalize;
-}
