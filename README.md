@@ -5,6 +5,11 @@
     <img src="https://github.com/Nu-SCPTheme/wikidot-normalize/workflows/Rust%20CI/badge.svg"
          alt="Rust CI badge">
   </a>
+
+  <a href="https://docs.rs/wikidot-normalize">
+    <img src="https://docs.rs/wikidot-normalize/badge.svg"
+         alt="docs.rs link">
+  </a>
 </p>
 
 Simple library to provide Wikidot-compatible string normalization. It attempts to be a Rust port of the functionality in [`WDStringUtils::toUnixName`](https://github.com/scpwiki/wikijump/blob/master/php/utils/WDStringUtils.php).
