@@ -107,10 +107,7 @@ fn replace_in_place(text: &mut String, regex: &Regex, replace_with: &str) {
 #[test]
 fn test_normalize() {
     macro_rules! check {
-        ($input:expr, $expected:expr,) => {
-            check!($input, $expected)
-        };
-        ($input:expr, $expected:expr) => {{
+        ($input:expr, $expected:expr $(,)?) => {{
             let mut text = str!($input);
             normalize(&mut text);
             assert_eq!(text, $expected, "Normalized text doesn't match expected");
