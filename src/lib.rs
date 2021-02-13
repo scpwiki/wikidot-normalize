@@ -17,10 +17,12 @@
 //!
 //! Wikidot ensures all names of pages subscribe to a particular pattern.
 //! Essentially, only the characters `:`, `a-z`, `0-9`, and `-` can be outputted.
-//! Any uppercase ASCII characters are made lowercase, and any characters outside
+//!
+//! * Any uppercase ASCII characters are made lowercase, and any characters outside
 //! the above set are collapsed into dashes. Multiple dashes or forward slashes are compressed
-//! into a single instance. Any trailing forward slashes are stripped.
-//! Finally, any leading, trailing, or multiple dashes are removed.
+//! into a single instance.
+//! * Any trailing forward slashes are stripped.
+//! * Finally, any leading, trailing, or multiple dashes are removed.
 
 #[macro_use]
 extern crate lazy_static;
