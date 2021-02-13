@@ -31,6 +31,7 @@ regex!(MULTIPLE_COLONS, r":{2,}");
 regex!(COLON_DASH, r"(:-)|(-:)");
 regex!(UNDERSCORE_DASH, r"(_-)|(-_)");
 regex!(LEADING_OR_TRAILING_COLON, r"(^:)|(:$)");
+regex!(DEFAULT_CATEGORY, r"^_default:");
 
 /// Converts an arbitrary string into Wikidot normalized form.
 ///
@@ -79,6 +80,9 @@ pub fn normalize(text: &mut String) {
 
     // Remove any leading or trailing colons.
     replace_in_place(text, &*LEADING_OR_TRAILING_COLON, "");
+
+    // Remove explicit _default category, if it exists.
+    replace_in_place(text, &*DEFAULT_CATEGORY, "");
 }
 
 fn replace_in_place(text: &mut String, regex: &Regex, replace_with: &str) {
@@ -154,10 +158,10 @@ fn test_normalize() {
     check!("fragment:__template", "fragment:_template");
     check!("fragment:_template_", "fragment:_template");
     check!("fragment::_template", "fragment:_template");
-    check!("_default:_template", "_default:_template");
-    check!("_default:__template", "_default:_template");
-    check!("_default:_template_", "_default:_template");
-    check!("_default::_template", "_default:_template");
+    check!("_default:_template", "_template");
+    check!("_default:__template", "_template");
+    check!("_default:_template_", "_template");
+    check!("_default::_template", "_template");
     check!(
         "protected:fragment:_template",
         "protected:fragment:_template",
