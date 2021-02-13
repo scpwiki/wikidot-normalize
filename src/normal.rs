@@ -31,7 +31,6 @@ regex!(MULTIPLE_COLONS, r":{2,}");
 regex!(COLON_DASH, r"(:-)|(-:)");
 regex!(UNDERSCORE_DASH, r"(_-)|(-_)");
 regex!(LEADING_OR_TRAILING_COLON, r"(^:)|(:$)");
-regex!(DEFAULT_CATEGORY, r"^_default:");
 
 /// Converts an arbitrary string into Wikidot normalized form.
 ///
@@ -82,7 +81,9 @@ pub fn normalize(text: &mut String) {
     replace_in_place(text, &*LEADING_OR_TRAILING_COLON, "");
 
     // Remove explicit _default category, if it exists.
-    replace_in_place(text, &*DEFAULT_CATEGORY, "");
+    if text.starts_with("_default:") {
+        text.replace_range(..9, "");
+    }
 }
 
 fn replace_in_place(text: &mut String, regex: &Regex, replace_with: &str) {
