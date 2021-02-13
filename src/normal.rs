@@ -49,6 +49,11 @@ pub fn normalize(text: &mut String) {
     // we want this to be in-place on a String.
     text.trim_in_place();
 
+    // Remove leading slash, if present.
+    if text.starts_with('/') {
+        text.replace_range(..1, "");
+    }
+
     // Transform latin-like characters into ASCII.
     // See ascii module for more details.
     ascii::transform_in_place(text);
