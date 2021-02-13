@@ -154,6 +154,10 @@ fn test_normalize() {
     check!("fragment:__template", "fragment:_template");
     check!("fragment:_template_", "fragment:_template");
     check!("fragment::_template", "fragment:_template");
+    check!("_default:_template", "_default:_template");
+    check!("_default:__template", "_default:_template");
+    check!("_default:_template_", "_default:_template");
+    check!("_default::_template", "_default:_template");
     check!(
         "protected:fragment:_template",
         "protected:fragment:_template",

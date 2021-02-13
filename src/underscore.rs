@@ -82,6 +82,12 @@ fn test_replace_underscores() {
     check!("fragment:_template_", "fragment:_template-");
     check!("fragment:_special_page", "fragment:_special-page");
     check!("fragment:_special__page", "fragment:_special--page");
+    check!("_default:page-name", "_default:page-name");
+    check!("_default:_template", "_default:_template");
+    check!("_default:__template", "_default:_-template");
+    check!("_default:_template_", "_default:_template-");
+    check!("_default:_special_page", "_default:_special-page");
+    check!("_default:_special__page", "_default:_special--page");
     check!(
         "protected:fragment:page-name",
         "protected:fragment:page-name",
