@@ -11,9 +11,10 @@
  *
  */
 
-use crate::ascii;
 use crate::underscore::replace_underscores;
+use deunicode::deunicode_with_tofu;
 use regex::Regex;
+use std::mem;
 use trim_in_place::TrimInPlace;
 
 macro_rules! regex {
@@ -56,7 +57,7 @@ pub fn normalize(text: &mut String) {
 
     // Transform latin-like characters into ASCII.
     // See ascii module for more details.
-    ascii::transform_in_place(text);
+    transform_ascii(text);
 
     // Lowercase all ASCII alphabetic characters.
     // Combined with the previous transformation this should
@@ -107,6 +108,12 @@ fn replace_in_place(text: &mut String, regex: &Regex, replace_with: &str) {
         let range = get_range(captures);
         text.replace_range(range, replace_with);
     }
+}
+
+fn transform_ascii(text: &mut String) {
+    let mut result = deunicode_with_tofu(text, "\u{FFFD}");
+
+    mem::swap(text, &mut result);
 }
 
 #[test]

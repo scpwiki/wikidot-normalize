@@ -24,6 +24,8 @@
 //! * Any trailing forward slashes are stripped.
 //! * Finally, any leading, trailing, or multiple dashes are removed.
 
+extern crate deunicode;
+
 #[macro_use]
 extern crate lazy_static;
 extern crate maplit;
@@ -34,7 +36,6 @@ extern crate regex;
 extern crate str_macro;
 extern crate trim_in_place;
 
-mod ascii;
 mod normal;
 mod underscore;
 
