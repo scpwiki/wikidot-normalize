@@ -1,7 +1,7 @@
 [package]
 name = "wikidot-normalize"
 description = "Simple library to provide Wikidot-compatible string normalization"
-repository = "https://github.com/Nu-SCPTheme/wikidot-normalize"
+repository = "https://github.com/scpwiki/wikidot-normalize"
 readme = "README.md"
 license = "MIT"
 keywords = ["wikidot", "normal", "nuscp"]

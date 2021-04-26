@@ -1,8 +1,8 @@
 ## wikidot-normalize
 
 <p>
-  <a href="https://github.com/Nu-SCPTheme/wikidot-normalize/actions?query=workflow%3A%22Rust+CI%22">
-    <img src="https://github.com/Nu-SCPTheme/wikidot-normalize/workflows/Rust%20CI/badge.svg"
+  <a href="https://github.com/scpwiki/wikidot-normalize/actions?query=workflow%3A%22Rust+CI%22">
+    <img src="https://github.com/scpwiki/wikidot-normalize/workflows/Rust%20CI/badge.svg"
          alt="Rust CI badge">
   </a>
 
