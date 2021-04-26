@@ -12,6 +12,8 @@ jobs:
   build_and_test:
     name: Compile
     runs-on: ubuntu-latest
+    env:
+      RUSTFLAGS: -D warnings
     steps:
       - uses: actions/checkout@v2
       - uses: actions-rs/toolchain@v1
@@ -32,6 +34,8 @@ jobs:
   clippy_lint:
     name: Lint
     runs-on: ubuntu-latest
+    env:
+      RUSTFLAGS: -D warnings
     steps:
       - uses: actions/checkout@v2
       - uses: actions-rs/toolchain@v1
