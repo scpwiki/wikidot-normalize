@@ -153,6 +153,7 @@ fn test_normalize() {
     check!("ᒥᐢᑕᓇᐢᑯᐍᐤ--1", "ᒥᐢᑕᓇᐢᑯᐍᐤ-1");
     check!("ᒥᐢᑕᓇᐢᑯᐍᐤ:_template", "ᒥᐢᑕᓇᐢᑯᐍᐤ:_template");
     check!("🚗A‱B⁜C", "a-b-c");
+    check!("Ⰰ_á_X", "ⰰ-á-x");
     check!("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!", "");
     check!("Component:image block", "component:image-block");
     check!("fragment:scp-4447-2", "fragment:scp-4447-2");
