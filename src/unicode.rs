@@ -19,3 +19,13 @@ pub fn normalize_nfkc(text: &mut String) {
 
     mem::swap(text, &mut normalized);
 }
+
+pub fn casefold(text: &mut String) {
+    let mut folded = String::new();
+
+    for ch in text.chars() {
+        folded.extend(ch.to_lowercase());
+    }
+
+    mem::swap(text, &mut folded);
+}

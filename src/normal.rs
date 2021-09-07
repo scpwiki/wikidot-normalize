@@ -12,7 +12,7 @@
  */
 
 use crate::underscore::replace_underscores;
-use crate::unicode::normalize_nfkc;
+use crate::unicode::{casefold, normalize_nfkc};
 use regex::Regex;
 use trim_in_place::TrimInPlace;
 
@@ -57,8 +57,10 @@ pub fn normalize(text: &mut String) {
     // Normalize to unicode NFKC.
     normalize_nfkc(text);
 
-    // Perform case folding. This effectively lowercases all the characters.
-    // TODO
+    // Perform case folding.
+    // This lowercases all the characters in the string, based on
+    // unicode codepoint data.
+    casefold(text);
 
     // Replace all characters not allowed in normal form.
     replace_in_place(text, &*NON_NORMAL, "-");
