@@ -34,7 +34,7 @@ regex!(LEADING_OR_TRAILING_COLON, r"(^:)|(:$)");
 /// Converts an arbitrary string into Wikidot normalized form.
 ///
 /// This will convert non-alphanumeric characters to dashes and
-/// makes it lowercase.
+/// case fold it.
 ///
 /// Examples:
 /// * `Big Cheese Horace` -> `big-cheese-horace`
