@@ -12,9 +12,8 @@
  */
 
 use crate::underscore::replace_underscores;
-use deunicode::deunicode_with_tofu;
+use crate::unicode::{casefold, normalize_nfkc};
 use regex::Regex;
-use std::mem;
 use trim_in_place::TrimInPlace;
 
 macro_rules! regex {
@@ -25,7 +24,7 @@ macro_rules! regex {
     };
 }
 
-regex!(NON_NORMAL, r"[^a-z0-9\-:_]");
+regex!(NON_NORMAL, r"[^\p{L}\p{N}\-:_]");
 regex!(LEADING_OR_TRAILING_DASHES, r"(^-+)|(-+$)");
 regex!(MULTIPLE_DASHES, r"-{2,}");
 regex!(MULTIPLE_COLONS, r":{2,}");
@@ -36,7 +35,7 @@ regex!(LEADING_OR_TRAILING_COLON, r"(^:)|(:$)");
 /// Converts an arbitrary string into Wikidot normalized form.
 ///
 /// This will convert non-alphanumeric characters to dashes and
-/// makes it lowercase.
+/// case fold it.
 ///
 /// Examples:
 /// * `Big Cheese Horace` -> `big-cheese-horace`
@@ -55,14 +54,13 @@ pub fn normalize(text: &mut String) {
         text.replace_range(..1, "");
     }
 
-    // Transform latin-like characters into ASCII.
-    // See ascii module for more details.
-    transform_ascii(text);
+    // Normalize to unicode NFKC.
+    normalize_nfkc(text);
 
-    // Lowercase all ASCII alphabetic characters.
-    // Combined with the previous transformation this should
-    // lowercase every character we care about (and permit in normal form anyways).
-    text.make_ascii_lowercase();
+    // Perform case folding.
+    // This lowercases all the characters in the string, based on
+    // unicode codepoint data.
+    casefold(text);
 
     // Replace all characters not allowed in normal form.
     replace_in_place(text, &*NON_NORMAL, "-");
@@ -110,12 +108,6 @@ fn replace_in_place(text: &mut String, regex: &Regex, replace_with: &str) {
     }
 }
 
-fn transform_ascii(text: &mut String) {
-    let mut result = deunicode_with_tofu(text, "\u{FFFD}");
-
-    mem::swap(text, &mut result);
-}
-
 #[test]
 fn test_normalize() {
     macro_rules! check {
@@ -156,7 +148,10 @@ fn test_normalize() {
     check!("Template_", "template");
     check!("Template__", "template");
     check!(" <[ TEST ]> ", "test");
-    check!("ÄÀ-áö ðñæ_þß*řƒŦ", "aa-ao-dnae-thss-rft");
+    check!("ÄÀ-áö ðñæ_þß*řƒŦ", "äà-áö-ðñæ_þß-řƒŧ");
+    check!("Site-五", "site-五");
+    check!("ᒥᐢᑕᓇᐢᑯᐍᐤ--1", "ᒥᐢᑕᓇᐢᑯᐍᐤ-1");
+    check!("🚗A‱B⁜C", "a-b-c");
     check!("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!", "");
     check!("Component:image block", "component:image-block");
     check!("fragment:scp-4447-2", "fragment:scp-4447-2");

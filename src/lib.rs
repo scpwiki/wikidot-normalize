@@ -16,15 +16,13 @@
 //! A library to provide Wikidot-compatible string normalization.
 //!
 //! Wikidot ensures all names of pages subscribe to a particular pattern.
-//! Essentially, only the characters `:`, `a-z`, `0-9`, and `-` can be outputted.
+//! Essentially, only alphanumeric characters, and `:`, `-`, and `_` are permitted.
 //!
-//! * Any uppercase ASCII characters are made lowercase, and any characters outside
+//! * Any uppercase characters are case folded, and any characters outside
 //! the above set are collapsed into dashes. Multiple dashes or forward slashes are compressed
 //! into a single instance.
 //! * Any trailing forward slashes are stripped.
 //! * Finally, any leading, trailing, or multiple dashes are removed.
-
-extern crate deunicode;
 
 #[macro_use]
 extern crate lazy_static;
@@ -35,8 +33,10 @@ extern crate regex;
 #[macro_use]
 extern crate str_macro;
 extern crate trim_in_place;
+extern crate unicode_normalization;
 
 mod normal;
 mod underscore;
+mod unicode;
 
 pub use self::normal::normalize;
