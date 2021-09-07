@@ -12,6 +12,7 @@
  */
 
 use crate::underscore::replace_underscores;
+use crate::unicode::normalize_nfkc;
 use regex::Regex;
 use trim_in_place::TrimInPlace;
 
@@ -23,7 +24,7 @@ macro_rules! regex {
     };
 }
 
-regex!(NON_NORMAL, r"[^a-z0-9\-:_]");
+regex!(NON_NORMAL, r"[^\p{L}\p{N}\-:_]");
 regex!(LEADING_OR_TRAILING_DASHES, r"(^-+)|(-+$)");
 regex!(MULTIPLE_DASHES, r"-{2,}");
 regex!(MULTIPLE_COLONS, r":{2,}");
@@ -53,10 +54,11 @@ pub fn normalize(text: &mut String) {
         text.replace_range(..1, "");
     }
 
-    // Lowercase all ASCII alphabetic characters.
-    // Combined with the previous transformation this should
-    // lowercase every character we care about (and permit in normal form anyways).
-    text.make_ascii_lowercase();
+    // Normalize to unicode NFKC.
+    normalize_nfkc(text);
+
+    // Perform case folding. This effectively lowercases all the characters.
+    // TODO
 
     // Replace all characters not allowed in normal form.
     replace_in_place(text, &*NON_NORMAL, "-");

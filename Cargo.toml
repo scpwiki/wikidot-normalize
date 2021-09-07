@@ -16,6 +16,7 @@ lazy_static = "1"
 maplit = "1"
 regex = "1"
 trim-in-place = "0.1"
+unicode-normalization = "0.1"
 
 [dev-dependencies]
 str-macro = "1"

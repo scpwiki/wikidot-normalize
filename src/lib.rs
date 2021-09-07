@@ -33,8 +33,10 @@ extern crate regex;
 #[macro_use]
 extern crate str_macro;
 extern crate trim_in_place;
+extern crate unicode_normalization;
 
 mod normal;
 mod underscore;
+mod unicode;
 
 pub use self::normal::normalize;
