@@ -30,7 +30,7 @@ pub fn replace_underscores(text: &mut String) {
     let mut prev_colon = false;
 
     // Finding matching, non-conforming underscores
-    for (idx, ch) in text.chars().enumerate() {
+    for (idx, ch) in text.char_indices() {
         if ch == '_' {
             // If it's not the leading underscore, or after a category,
             // push an index to replace it
