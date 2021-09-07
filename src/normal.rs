@@ -149,6 +149,9 @@ fn test_normalize() {
     check!("Template__", "template");
     check!(" <[ TEST ]> ", "test");
     check!("ÄÀ-áö ðñæ_þß*řƒŦ", "äà-áö-ðñæ_þß-řƒŧ");
+    check!("Site-五", "site-五");
+    check!("ᒥᐢᑕᓇᐢᑯᐍᐤ--1", "ᒥᐢᑕᓇᐢᑯᐍᐤ-1");
+    check!("🚗A‱B⁜C", "a-b-c");
     check!("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!", "");
     check!("Component:image block", "component:image-block");
     check!("fragment:scp-4447-2", "fragment:scp-4447-2");
