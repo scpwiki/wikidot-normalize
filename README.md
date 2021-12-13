@@ -35,7 +35,7 @@ This library is getting close to finalization with a `v1.0.0` release.
 Available under the terms of the MIT License. See [LICENSE.md](LICENSE).
 
 ### Compilation
-This library targets the latest stable Rust. At time of writing, that is 1.55.0
+This library targets the latest stable Rust. At time of writing, that is 1.57.0
 
 ```sh
 $ cargo build --release
