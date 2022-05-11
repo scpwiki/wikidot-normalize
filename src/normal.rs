@@ -138,6 +138,7 @@ fn test_normalize() {
     check!("some,Page", "some-page");
     check!("End of Death Hub", "end-of-death-hub");
     check!("$100 is a lot of money", "100-is-a-lot-of-money");
+    check!("$100 is a lot of money!", "100-is-a-lot-of-money");
     check!("snake_case", "snake-case");
     check!("long__snake__case", "long-snake-case");
     check!("snake-_dash", "snake-dash");
