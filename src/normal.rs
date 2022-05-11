@@ -65,6 +65,10 @@ pub fn normalize(text: &mut String) {
     // Replace all characters not allowed in normal form.
     replace_in_place(text, &*NON_NORMAL, "-");
 
+    // Replace all prior colons with dashes, to make an "extra long category".
+    // See https://scuttle.atlassian.net/browse/WJ-355
+    merge_multi_categories(text);
+
     // Replace non-leading underscores with dashes.
     //
     // Permits names like "_template" or "category:_template".
@@ -83,10 +87,6 @@ pub fn normalize(text: &mut String) {
 
     // Remove any leading or trailing colons.
     replace_in_place(text, &*LEADING_OR_TRAILING_COLON, "");
-
-    // Replace all prior colons with dashes, to make an "extra long category".
-    // See https://scuttle.atlassian.net/browse/WJ-355
-    merge_multi_categories(text);
 
     // Remove explicit _default category, if it exists.
     if text.starts_with("_default:") {
