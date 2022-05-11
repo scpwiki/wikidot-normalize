@@ -168,8 +168,8 @@ fn test_normalize() {
     check!("fragment:scp-4447-2", "fragment:scp-4447-2");
     check!("fragment::scp-4447-2", "fragment:scp-4447-2");
     check!("FRAGMENT:SCP-4447 (2)", "fragment:scp-4447-2");
-    check!("protected_:fragment_:page", "protected:fragment:page");
-    check!("protected:_fragment_:page", "protected:_fragment:page");
+    check!("protected_:fragment_:page", "protected-fragment:page");
+    check!("protected:_fragment_:page", "protected-fragment:page");
     check!("fragment:_template", "fragment:_template");
     check!("fragment:__template", "fragment:_template");
     check!("fragment:_template_", "fragment:_template");
@@ -188,26 +188,30 @@ fn test_normalize() {
     check!("/_default::_template", "_template");
     check!(
         "protected:fragment:_template",
-        "protected:fragment:_template",
+        "protected-fragment:_template",
     );
     check!(
         "protected:fragment:__template",
-        "protected:fragment:_template",
+        "protected-fragment:_template",
     );
     check!(
         "protected:fragment:_template_",
-        "protected:fragment:_template",
+        "protected-fragment:_template",
     );
     check!(
         "protected:fragment::_template",
-        "protected:fragment:_template",
+        "protected-fragment:_template",
     );
     check!(
         "protected::fragment:_template",
-        "protected:fragment:_template",
+        "protected-fragment:_template",
     );
     check!(
         "protected::fragment::_template",
-        "protected:fragment:_template",
+        "protected-fragment:_template",
+    );
+    check!(
+        "protected:archived:fragment:page",
+        "protected-archived-fragment:page",
     );
 }
