@@ -84,6 +84,10 @@ pub fn normalize(text: &mut String) {
     // Remove any leading or trailing colons.
     replace_in_place(text, &*LEADING_OR_TRAILING_COLON, "");
 
+    // Replace all prior colons with dashes, to make an "extra long category".
+    // See https://scuttle.atlassian.net/browse/WJ-355
+    merge_multi_categories(text);
+
     // Remove explicit _default category, if it exists.
     if text.starts_with("_default:") {
         text.replace_range(..9, "");
@@ -105,6 +109,30 @@ fn replace_in_place(text: &mut String, regex: &Regex, replace_with: &str) {
     while let Some(captures) = regex.captures(text) {
         let range = get_range(captures);
         text.replace_range(range, replace_with);
+    }
+}
+
+fn merge_multi_categories(text: &mut String) {
+    let mut indices = Vec::new();
+    let mut first = true;
+
+    // Find all colons except the last
+    for (idx, ch) in text.char_indices().rev() {
+        if ch != ':' {
+            continue;
+        }
+
+        if first {
+            first = false;
+            continue;
+        }
+
+        indices.push(idx);
+    }
+
+    // Replace all colons with dashes
+    for idx in indices {
+        text.replace_range(idx..idx + 1, "-");
     }
 }
 
