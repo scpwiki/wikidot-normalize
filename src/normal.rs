@@ -140,6 +140,9 @@ fn test_normalize() {
     check!("$100 is a lot of money", "100-is-a-lot-of-money");
     check!("snake_case", "snake-case");
     check!("long__snake__case", "long-snake-case");
+    check!("snake-_dash", "snake-dash");
+    check!("snake_-dash", "snake-dash");
+    check!("snake_-_dash", "snake-dash");
     check!("_template", "_template");
     check!("_template_", "_template");
     check!("__template", "_template");
