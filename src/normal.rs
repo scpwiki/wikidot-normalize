@@ -11,6 +11,7 @@
  *
  */
 
+use crate::category::merge_multi_categories;
 use crate::underscore::replace_underscores;
 use crate::unicode::{casefold, normalize_nfkc};
 use regex::Regex;
@@ -64,6 +65,10 @@ pub fn normalize(text: &mut String) {
 
     // Replace all characters not allowed in normal form.
     replace_in_place(text, &*NON_NORMAL, "-");
+
+    // Replace all prior colons with dashes, to make an "extra long category".
+    // See https://scuttle.atlassian.net/browse/WJ-355
+    merge_multi_categories(text);
 
     // Replace non-leading underscores with dashes.
     //
@@ -133,8 +138,12 @@ fn test_normalize() {
     check!("some,Page", "some-page");
     check!("End of Death Hub", "end-of-death-hub");
     check!("$100 is a lot of money", "100-is-a-lot-of-money");
+    check!("$100 is a lot of money!", "100-is-a-lot-of-money");
     check!("snake_case", "snake-case");
     check!("long__snake__case", "long-snake-case");
+    check!("snake-_dash", "snake-dash");
+    check!("snake_-dash", "snake-dash");
+    check!("snake_-_dash", "snake-dash");
     check!("_template", "_template");
     check!("_template_", "_template");
     check!("__template", "_template");
@@ -159,8 +168,8 @@ fn test_normalize() {
     check!("fragment:scp-4447-2", "fragment:scp-4447-2");
     check!("fragment::scp-4447-2", "fragment:scp-4447-2");
     check!("FRAGMENT:SCP-4447 (2)", "fragment:scp-4447-2");
-    check!("protected_:fragment_:page", "protected:fragment:page");
-    check!("protected:_fragment_:page", "protected:_fragment:page");
+    check!("protected_:fragment_:page", "protected-fragment:page");
+    check!("protected:_fragment_:page", "protected-fragment:page");
     check!("fragment:_template", "fragment:_template");
     check!("fragment:__template", "fragment:_template");
     check!("fragment:_template_", "fragment:_template");
@@ -179,26 +188,30 @@ fn test_normalize() {
     check!("/_default::_template", "_template");
     check!(
         "protected:fragment:_template",
-        "protected:fragment:_template",
+        "protected-fragment:_template",
     );
     check!(
         "protected:fragment:__template",
-        "protected:fragment:_template",
+        "protected-fragment:_template",
     );
     check!(
         "protected:fragment:_template_",
-        "protected:fragment:_template",
+        "protected-fragment:_template",
     );
     check!(
         "protected:fragment::_template",
-        "protected:fragment:_template",
+        "protected-fragment:_template",
     );
     check!(
         "protected::fragment:_template",
-        "protected:fragment:_template",
+        "protected-fragment:_template",
     );
     check!(
         "protected::fragment::_template",
-        "protected:fragment:_template",
+        "protected-fragment:_template",
+    );
+    check!(
+        "protected:archived:fragment:page",
+        "protected-archived-fragment:page",
     );
 }

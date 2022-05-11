@@ -35,6 +35,7 @@ extern crate str_macro;
 extern crate trim_in_place;
 extern crate unicode_normalization;
 
+mod category;
 mod normal;
 mod underscore;
 mod unicode;
