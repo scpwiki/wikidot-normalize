@@ -230,3 +230,25 @@ fn test_normalize() {
         "protected:fragment:_template",
     );
 }
+
+#[test]
+fn test_multi_category() {
+    macro_rules! check {
+        ($input:expr, $expected:expr $(,)?) => {{
+            let mut text = str!($input);
+            merge_multi_categories(&mut text);
+            assert_eq!(
+                text,
+                $expected,
+                "Merged multiple categories doesn't match expected",
+            );
+        }};
+    }
+
+    check!("", "");
+    check!("alpha", "alpha");
+    check!("alpha:beta", "alpha:beta");
+    check!("alpha:beta:gamma", "alpha-beta:gamma");
+    check!("alpha:beta:gamma:delta", "alpha-beta-gamma:delta");
+    check!("alpha:beta:gamma:delta:epsilon", "alpha-beta-gamma-delta:epsilon");
+}
