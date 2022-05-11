@@ -57,4 +57,12 @@ fn test_multi_category() {
         "alpha:beta:gamma:delta:epsilon",
         "alpha-beta-gamma-delta:epsilon",
     );
+    check!(
+        "alpha:beta:gamma:delta:epsilon:zeta",
+        "alpha-beta-gamma-delta-epsilon:zeta",
+    );
+    check!(
+        "alpha:beta:gamma:delta:epsilon:zeta:eta",
+        "alpha-beta-gamma-delta-epsilon-zeta:eta",
+    );
 }
