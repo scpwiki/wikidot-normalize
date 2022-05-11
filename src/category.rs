@@ -42,8 +42,7 @@ fn test_multi_category() {
             let mut text = str!($input);
             merge_multi_categories(&mut text);
             assert_eq!(
-                text,
-                $expected,
+                text, $expected,
                 "Merged multiple categories doesn't match expected",
             );
         }};
@@ -54,5 +53,8 @@ fn test_multi_category() {
     check!("alpha:beta", "alpha:beta");
     check!("alpha:beta:gamma", "alpha-beta:gamma");
     check!("alpha:beta:gamma:delta", "alpha-beta-gamma:delta");
-    check!("alpha:beta:gamma:delta:epsilon", "alpha-beta-gamma-delta:epsilon");
+    check!(
+        "alpha:beta:gamma:delta:epsilon",
+        "alpha-beta-gamma-delta:epsilon",
+    );
 }
