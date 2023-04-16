@@ -5,7 +5,7 @@ repository = "https://github.com/scpwiki/wikidot-normalize"
 readme = "README.md"
 license = "MIT"
 keywords = ["wikidot", "normal", "nuscp"]
-exclude = [".gitignore", ".travis.yml"]
+exclude = [".gitignore", ".github"]
 
 version = "0.10.0"
 authors = ["Ammon Smith <ammon.i.smith@gmail.com>"]
