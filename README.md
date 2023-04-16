@@ -12,7 +12,7 @@
   </a>
 </p>
 
-Simple library to provide Wikidot-compatible string normalization. It is a Rust port of the functionality in [`WDStringUtils::toUnixName`](https://github.com/scpwiki/wikijump/blob/develop/web/php/Utils/WDStringUtils.php).
+Simple library to provide Wikidot-compatible string normalization. It is a Rust port of the functionality in [`WDStringUtils::toUnixName`](https://github.com/scpwiki/wikijump/blob/legacy-php/web/php/Utils/WDStringUtils.php).
 
 Wikidot normal form is used in the site's page names. Essentially it ensures the following:
 
