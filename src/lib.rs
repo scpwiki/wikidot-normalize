@@ -2,7 +2,7 @@
  * lib.rs
  *
  * wikidot-normalize - Library to provide Wikidot-compatible normalization.
- * Copyright (c) 2019-2022 Ammon Smith
+ * Copyright (c) 2019-2023 Emmie Maeda
  *
  * wikidot-normalize is available free of charge under the terms of the MIT
  * License. You are free to redistribute and/or modify it under those
