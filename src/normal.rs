@@ -64,7 +64,7 @@ pub fn normalize(text: &mut String) {
     casefold(text);
 
     // Replace all characters not allowed in normal form.
-    replace_in_place(text, &*NON_NORMAL, "-");
+    replace_in_place(text, &NON_NORMAL, "-");
 
     // Replace all prior colons with dashes, to make an "extra long category".
     // See https://scuttle.atlassian.net/browse/WJ-355
@@ -76,18 +76,18 @@ pub fn normalize(text: &mut String) {
     replace_underscores(text);
 
     // Remove any leading or trailing dashes.
-    replace_in_place(text, &*LEADING_OR_TRAILING_DASHES, "");
+    replace_in_place(text, &LEADING_OR_TRAILING_DASHES, "");
 
     // Merge multiple dashes and colons into one.
-    replace_in_place(text, &*MULTIPLE_DASHES, "-");
-    replace_in_place(text, &*MULTIPLE_COLONS, ":");
+    replace_in_place(text, &MULTIPLE_DASHES, "-");
+    replace_in_place(text, &MULTIPLE_COLONS, ":");
 
     // Remove any leading or trailing dashes next to colons or underscores.
-    replace_in_place(text, &*COLON_DASH, ":");
-    replace_in_place(text, &*UNDERSCORE_DASH, "_");
+    replace_in_place(text, &COLON_DASH, ":");
+    replace_in_place(text, &UNDERSCORE_DASH, "_");
 
     // Remove any leading or trailing colons.
-    replace_in_place(text, &*LEADING_OR_TRAILING_COLON, "");
+    replace_in_place(text, &LEADING_OR_TRAILING_COLON, "");
 
     // Remove explicit _default category, if it exists.
     if text.starts_with("_default:") {
