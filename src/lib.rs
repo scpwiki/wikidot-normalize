@@ -24,16 +24,9 @@
 //! * Any trailing forward slashes are stripped.
 //! * Finally, any leading, trailing, or multiple dashes are removed.
 
-#[macro_use]
-extern crate lazy_static;
-extern crate maplit;
-extern crate regex;
-
 #[cfg(test)]
 #[macro_use]
 extern crate str_macro;
-extern crate trim_in_place;
-extern crate unicode_normalization;
 
 mod category;
 mod normal;

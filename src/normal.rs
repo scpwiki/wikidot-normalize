@@ -14,14 +14,13 @@
 use crate::category::merge_multi_categories;
 use crate::underscore::replace_underscores;
 use crate::unicode::{casefold, normalize_nfkc};
+use once_cell::sync::Lazy;
 use regex::Regex;
 use trim_in_place::TrimInPlace;
 
 macro_rules! regex {
     ($name:tt, $expr:expr) => {
-        lazy_static! {
-            static ref $name: Regex = Regex::new($expr).unwrap();
-        }
+        static $name: Lazy<Regex> = Lazy::new(|| Regex::new($expr).unwrap());
     };
 }
 
